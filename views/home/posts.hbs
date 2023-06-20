@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+
+  </head>
+
+  <body>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+
+          <!-- Title -->
+          <h1 class="mt-4">{{posts.title}}</h1>
+
+          <!-- Author -->
+          <p class="lead">
+            by
+            <a href="#">{{posts.user.firstName}}</a>
+          </p>
+
+          <hr>
+
+          <!-- Date/Time -->
+          <p>Posted on {{generateDate posts.createdAt 'Do MMM YYYY'}} at 12:00 PM</p>
+
+          <hr>
+
+          <!-- Preview Image -->
+          <img class="img-fluid rounded" src="/upload/{{posts.file}}" alt="">
+
+          <hr>
+
+          <p>{{posts.body}}</p>
+
+          <blockquote class="blockquote">
+            <footer class="blockquote-footer">_ID
+              <cite title="Source Title">{{posts._id}}</cite>
+            </footer>
+          </blockquote>
+          <hr>
+
+        {{#if user}}
+        {{#if posts.allowComments}}
+          <!-- Comments Form -->
+          <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+              <form action="/admin/comments" method="post">
+                <div class="form-group">
+                  <textarea name="body" class="form-control" rows="3"></textarea>
+                  <input type="hidden" name="id" value="{{posts._id}}" />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+          {{else}}
+            <h4>Comments not allowed for this post</h4>
+            <br>
+            <hr>
+        {{/if}}
+        {{else}}
+          You need to login to comment on this post <a href="/login">Login</a>
+          <br>
+          <hr>
+        {{/if}}
+
+
+          {{#each posts.comments}}
+          <!-- Single Comment -->
+          <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+              <h5 class="mt-0">{{user.firstName}}</h5>
+              {{body}}
+            </div>
+          </div>
+          {{/each}}
+          <!-- Comment with nested comments -->
+          {{!-- <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+              <h5 class="mt-0">Commenter Name</h5>
+              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+              <div class="media mt-4">
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+                  <h5 class="mt-0">Commenter Name</h5>
+                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+              </div>
+
+              <div class="media mt-4">
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+                  <h5 class="mt-0">Commenter Name</h5>
+                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+              </div>
+
+            </div>
+          </div> --}}
+
+        </div>
+
+        {{> home/sidebar}}
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+  </body>
+
+</html>

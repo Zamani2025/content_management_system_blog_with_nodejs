@@ -1,0 +1,46 @@
+<h1>Edit Post</h1>
+<a href="/admin/posts" class="btn btn-primary mb-3">Back to all posts</a>
+<form action="/admin/posts/edit-post/{{posts._id}}?method=PUT" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" value="{{posts.title}}" name="title" placeholder="Title" class="form-control" id="">
+    </div>
+    <div class="form-group">
+        <label for="file">File</label>
+        <input type="file" name="file" class="form-control" id="">
+    </div>
+    <div class="form-group">
+        <label for="status">Category</label>
+        <select name="category" class="form-control" id="">
+            <option  disabled>Choose an option</option>
+            {{#select posts.category}}
+            {{#each categories}}
+            <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select name="status" class="form-control" id="">
+            <option  disabled>Choose an option</option>
+            {{#select posts.status}}
+            <option value="public">public</option>
+            <option value="private">Private</option>
+            <option value="draft">Draft</option>
+            {{/select}}
+        </select>
+    </div>
+    <div class="from-group">
+        <label for="allowComments" class="form-check-label">
+            <input type="checkbox" {{#if posts.allowComments}}checked="checked"{{/if}} name="allowComments" class="form-check-input">
+            Allow Comments
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="body">Description</label>
+        <textarea name="body" id="" placeholder="Description" class="form-control" cols="30" rows="10">{{posts.body}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-outline-info">Edit Post</button>
+</form>
